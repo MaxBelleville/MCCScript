@@ -1,0 +1,16 @@
+{
+  "name": "mccscript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "gen-parser": "nearleyc grammar.ne -o grammar.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "moo": "^0.5.2",
+    "nearley": "^2.20.1"
+  }
+}
