@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node index.js test.mccscript",
     "gen-parser": "nearleyc grammar.ne -o grammar.js"
   },
   "author": "",

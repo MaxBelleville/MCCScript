@@ -1,15 +1,8 @@
 const fs =require('fs/promises');
 
-async function main () {
-    const filename = process.argv[2];
-    if (!filename) {
-        console.log("No file name present, please provide a .ast file");
-        return;
-    }
-    const astJson = (await fs.readFile(filename)).toString();
-    const ast = JSON.parse(astJson);
+const generator = async (ast) =>{
     const jsCode = generateJSFromAst(ast);
-    const outputFile = filename.replace('.ast','.js');
+    const outputFile = 'debug.js'
     await fs.writeFile(outputFile, jsCode);
     console.log(`Wrote to ${outputFile}`);
 }
@@ -49,5 +42,4 @@ function generateJSFromNode(node) {
         console.log("New node type found")
     }
 }
-
-main().catch(err=> console.log(err.stack));
+module.exports = generator;

@@ -59,20 +59,5 @@ const lexer = moo.compile({
     NL:      { match: /\n/, lineBreaks: true },
   })
 
-//   async function main(){
-//     const filename = process.argv[2];
-//     if (!filename) {
-//         console.log("No file name present, please provide a .mccscript file");
-//         return;
-//     }
-//     const code = (await fs.readFile(filename)).toString();
-
-//     lexer.reset(code)
-//     for(var line of lexer){
-//       console.log(line);
-//     }
-
-// }
-// main().catch(err=>console.log(err.stack));
 
 module.exports=lexer;
