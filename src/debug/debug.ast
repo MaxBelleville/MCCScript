@@ -1,0 +1,173 @@
+[
+ {
+  "type": "datapack_def",
+  "params": [
+   {
+    "type": {
+     "type": "datapack_keywords",
+     "value": "namespace",
+     "text": "namespace",
+     "offset": 10,
+     "lineBreaks": 0,
+     "line": 1,
+     "col": 11
+    },
+    "value": {
+     "type": "string",
+     "value": "a",
+     "text": "\"a\"",
+     "offset": 20,
+     "lineBreaks": 0,
+     "line": 1,
+     "col": 21
+    }
+   }
+  ]
+ },
+ {
+  "type": "import_mcc",
+  "value": {
+   "type": "string",
+   "value": "a",
+   "text": "\"a\"",
+   "offset": 32,
+   "lineBreaks": 0,
+   "line": 2,
+   "col": 9
+  }
+ },
+ {
+  "type": {
+   "type": "datapack_keywords",
+   "value": "load",
+   "text": "load",
+   "offset": 36,
+   "lineBreaks": 0,
+   "line": 3,
+   "col": 1
+  },
+  "body": [
+   {
+    "type": "var_assign",
+    "var_name": {
+     "type": "id",
+     "value": "x",
+     "text": "x",
+     "offset": 47,
+     "lineBreaks": 0,
+     "line": 4,
+     "col": 5
+    },
+    "value": {
+     "type": "number",
+     "value": 5,
+     "text": "5",
+     "offset": 49,
+     "lineBreaks": 0,
+     "line": 4,
+     "col": 7
+    }
+   }
+  ]
+ },
+ {
+  "type": {
+   "type": "datapack_keywords",
+   "value": "tick",
+   "text": "tick",
+   "offset": 55,
+   "lineBreaks": 0,
+   "line": 6,
+   "col": 1
+  },
+  "body": []
+ },
+ [
+  {
+   "type": "import_mcc",
+   "value": {
+    "type": "string",
+    "value": "b",
+    "text": "\"b\"",
+    "offset": 8,
+    "lineBreaks": 0,
+    "line": 1,
+    "col": 9
+   }
+  },
+  {
+   "type": "func_def",
+   "func_name": {
+    "type": "id",
+    "value": "say",
+    "text": "say",
+    "offset": 21,
+    "lineBreaks": 0,
+    "line": 2,
+    "col": 10
+   },
+   "params": [],
+   "body": [
+    {
+     "type": "var_assign",
+     "var_name": {
+      "type": "id",
+      "value": "y",
+      "text": "y",
+      "offset": 33,
+      "lineBreaks": 0,
+      "line": 3,
+      "col": 5
+     },
+     "value": {
+      "type": "number",
+      "value": 2,
+      "text": "2",
+      "offset": 35,
+      "lineBreaks": 0,
+      "line": 3,
+      "col": 7
+     }
+    }
+   ]
+  },
+  [
+   {
+    "type": "func_def",
+    "func_name": {
+     "type": "id",
+     "value": "say2",
+     "text": "say2",
+     "offset": 9,
+     "lineBreaks": 0,
+     "line": 1,
+     "col": 10
+    },
+    "params": [],
+    "body": [
+     {
+      "type": "var_assign",
+      "var_name": {
+       "type": "id",
+       "value": "y",
+       "text": "y",
+       "offset": 22,
+       "lineBreaks": 0,
+       "line": 2,
+       "col": 5
+      },
+      "value": {
+       "type": "number",
+       "value": 2,
+       "text": "2",
+       "offset": 24,
+       "lineBreaks": 0,
+       "line": 2,
+       "col": 7
+      }
+     }
+    ]
+   }
+  ]
+ ]
+]

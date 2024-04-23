@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js test.mccscript",
-    "gen-parser": "nearleyc grammar.ne -o grammar.js"
+    "start": "node src/index.js main.mccscript",
+    "gen-parser": "cd ./src/grammar & nearleyc index.ne -o grammar.js"
   },
   "author": "",
   "license": "ISC",

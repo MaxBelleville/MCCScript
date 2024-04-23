@@ -5,7 +5,7 @@ const lexer = moo.compile({
     WS:      /[ \t]+/,
     comment: /\/\/.*?$/,
     number:  {match: /0|[1-9][0-9]*/, value: (str)=>Number(str)},
-    string:  /"(?:\\["\\]|[^\n"\\])*"/,
+    string:  {match:/"(?:\\["\\]|[^\n"\\])*"/, value: (str)=>str.replaceAll("\"","")},
     lparen:  '(',
     rparen:  ')',
     lcurrly:  '{',
@@ -15,6 +15,7 @@ const lexer = moo.compile({
     nequals: '!=',
     lequals: '<=',
     gequals: '>=',
+    arrow: '=>',
     dequals: '/=',
     sequals: '-=',
     aequals: '+=',
@@ -44,19 +45,32 @@ const lexer = moo.compile({
     built_ins:['print','pow','sqrt','acos','abs','acosh','asin','asinh','atan','atan2','atanh','cbrt',
     'ceil','cos','cosh','exp','floor','hypot','log','log10','max','min','round','sin','sinh','tan','tanh',
     'fact','uuid'],
+    conditional_keywords: [
+      'if', 'else', 'switch', 'case'
+    ],
+    conditional_args: [
+      'and', 'not', 'or', 'default', 'break'
+    ],
+    looping_keywords: [
+      'for', 'while', 'do-while', 'of',
+    ],
+    functional_keywords: [
+      'function', 'return'
+    ],
+    datapack_keywords: [
+        'load', 'tick', 'dir', 'namespace', '#datapack', 'desc'
+    ],
     keyword: 
     [
-      'for', 'dir', 'desc', 'in', 'end', 'not', 'and', 'or', 'to', 'by', 'import',
-      'namespace', 'with', 'macros',
-      'at', 'as', 'on', 'facing', 'rotated', 'align', 'here', 'the_end', 'the_nether', 'overworld',
-      'move', 'create', 'tell', 'title', 'subtitle', 'actionbar',
-      'reset', 'clock', 'function', 'if', 'unless', 'then', 'do', 'else', 'switch', 'case', 'default',
-      'return', 'while', 'macro', 'block', 'block_data', 'block_tag', 'entity_tag', 'item_tag', 'define', 'array', 'remove', 'success', 'result',
-    'shaped', 'recipe', 'keys', 'eyes', 'feet',	'advancement', 'loot_table', 'predicate',
-    'push', 'pop'
+      'in', 'end', 'to', 'by', '#import',  'namespace', 'with', 'macros', 'at', 'as', 'on', 
+      'facing', 'rotated', 'align', 'here', 'the_end', 'the_nether', 'overworld', 'move', 
+      'create', 'tell', 'title', 'subtitle', 'actionbar', 'reset', 'clock', 'do', 'macro', 
+      'block', 'block_data', 'block_tag', 'entity_tag', 'item_tag', 'define', 'array', 'remove', 
+      'success', 'result', 'shaped', 'recipe', 'keys', 'eyes', 'feet',	'advancement', 'loot_table', 
+      'predicate', 'push', 'pop'
     ],
-    id: /[a-zA-Z][a-zA-Z_0-9]*/,
     NL:      { match: /\n/, lineBreaks: true },
+    id: /[a-zA-Z][a-zA-Z_0-9]*/,
   })
 
 

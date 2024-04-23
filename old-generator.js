@@ -38,8 +38,23 @@ function generateJSFromNode(node) {
     }
     else if(node.type==="built_in_func"){
     }
-    else {
+    else if(node.type==="lambda_func") {
+        const paramList = node.params.map(param=>param.value).join(", ");
+        const jsBody = node.body.map(line=>{
+            return generateJSFromNode(line);
+        }).join(";\n\t");
+        return `function (${paramList}) {\n\t${jsBody}\n}`
+    }
+    else if(node.type==="func_def") {
+        const paramList = node.params.map(param=>param.value).join(", ");
+        const jsBody = node.body.map(line=>{
+            return generateJSFromNode(line);
+        }).join(";\n\t");
+        return `function ${node.func_name.value}(${paramList}) {\n\t${jsBody}\n}`
+    }
+    else if(node.type!=="comment") {
         console.log("New node type found")
     }
+    return "";
 }
 module.exports = generator;

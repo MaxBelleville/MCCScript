@@ -1,0 +1,7 @@
+#datapack namespace "a"
+load {
+    x=5;
+};
+tick {
+
+};
