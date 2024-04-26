@@ -78,7 +78,7 @@ var grammar = {
     {"name": "datapack_def$ebnf$1", "symbols": ["datapack_def$ebnf$1$subexpression$1"]},
     {"name": "datapack_def$ebnf$1$subexpression$2", "symbols": ["datapack_args"]},
     {"name": "datapack_def$ebnf$1", "symbols": ["datapack_def$ebnf$1", "datapack_def$ebnf$1$subexpression$2"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "datapack_def", "symbols": [{"literal":"#datapack"}, "datapack_def$ebnf$1"], "postprocess": 
+    {"name": "datapack_def", "symbols": [{"literal":"@datapack"}, "datapack_def$ebnf$1"], "postprocess": 
         (data)=>{
             const arrayArgs = data[1]
             const args = arrayArgs.map(parts=>parts[0])
@@ -88,13 +88,32 @@ var grammar = {
             }
         }
              },
-    {"name": "datapack_args$subexpression$1", "symbols": [{"literal":"namespace"}]},
-    {"name": "datapack_args$subexpression$1", "symbols": [{"literal":"dir"}]},
-    {"name": "datapack_args$subexpression$1", "symbols": [{"literal":"desc"}]},
+    {"name": "datapack_args$subexpression$1", "symbols": [{"literal":"-directory"}]},
+    {"name": "datapack_args$subexpression$1", "symbols": [{"literal":"-dir"}]},
+    {"name": "datapack_args$subexpression$1", "symbols": [{"literal":"-namespace"}]},
+    {"name": "datapack_args$subexpression$1", "symbols": [{"literal":"-ns"}]},
+    {"name": "datapack_args$subexpression$1", "symbols": [{"literal":"-desc"}]},
+    {"name": "datapack_args$subexpression$1", "symbols": [{"literal":"-description"}]},
     {"name": "datapack_args", "symbols": ["__lb", "datapack_args$subexpression$1", "__lb", (lexer.has("string") ? {type: "string"} : string)], "postprocess": 
         (data)=>{
+            var type=data[1][0].value.replace("-","")
+            if(type==='dir') type='directory'
+            if(type==='ns') type='namespace'
+            if(type==='desc') type='description'
             return {
-                type: data[1][0],
+                type: type,
+                value: data[3]
+            }
+        }
+            },
+    {"name": "datapack_args$subexpression$2", "symbols": [{"literal":"-version"}]},
+    {"name": "datapack_args$subexpression$2", "symbols": [{"literal":"-ver"}]},
+    {"name": "datapack_args", "symbols": ["__lb", "datapack_args$subexpression$2", "__lb", (lexer.has("number") ? {type: "number"} : number)], "postprocess": 
+        (data)=>{
+            var type=data[1][0].value.replace("-","")
+            if(type==='ver') type='version'
+            return {
+                type: type,
                 value: data[3]
             }
         }
@@ -103,8 +122,9 @@ var grammar = {
     {"name": "datapack_func$subexpression$1", "symbols": [{"literal":"tick"}]},
     {"name": "datapack_func", "symbols": ["datapack_func$subexpression$1", "func_body"], "postprocess": 
         (data)=>{
+                var type=data[0][0].value
                return { 
-                   type: data[0][0],
+                   type: type,
                    body: data[1]
                }
            }

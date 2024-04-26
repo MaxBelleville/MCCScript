@@ -1,4 +1,4 @@
-//const generator = require('./generator.js');
+const Compiler = require('./compiler/compiler.js');
 const parse = require('./parse.js');
 const fs =require('fs/promises');
 
@@ -10,6 +10,9 @@ async function main () {
     }
     const code = (await fs.readFile(filename)).toString();
     const ast =await parse(code,filename)
-  //  if(ast) await generator(ast);
+    if(ast) {
+      const compiler = new Compiler();
+      compiler.build(ast,filename);
+    }
 }
 main().catch(err=> console.log(err.stack));
