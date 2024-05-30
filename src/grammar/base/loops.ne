@@ -17,7 +17,7 @@ for_header
     {%
         (data)=>{
             return { 
-                type: "conditional",
+                type: "head-conditional",
                 value: data[0],
                 conditonal: data[2],
                 incrementer: data[4]
@@ -28,7 +28,7 @@ for_header
     {%
         (data)=>{
             return { 
-                type: "conditional",
+                type: "head-conditional",
                 conditonal: data[2],
                 incrementer: data[4]
             }

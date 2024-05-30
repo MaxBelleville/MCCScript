@@ -194,67 +194,112 @@
   "type": "tick",
   "body": [
    {
-    "type": "if_def",
-    "conditionals": {
-     "type": "conditional",
+    "type": "for",
+    "header": {
+     "type": "head-conditional",
      "value": {
-      "type": "true",
-      "value": "true",
-      "text": "true",
-      "offset": 214,
-      "lineBreaks": 0,
-      "line": 10,
-      "col": 9
+      "type": "var_assign",
+      "id": {
+       "type": "var",
+       "value": {
+        "type": "id",
+        "value": "x",
+        "text": "x",
+        "offset": 214,
+        "lineBreaks": 0,
+        "line": 10,
+        "col": 9
+       }
+      },
+      "value": {
+       "type": "number",
+       "value": 0,
+       "text": "0",
+       "offset": 216,
+       "lineBreaks": 0,
+       "line": 10,
+       "col": 11
+      }
      },
-     "not": false
-    },
-    "value": []
-   },
-   {
-    "type": "elif_def",
-    "value": {
-     "type": "if_def",
-     "conditionals": {
+     "conditonal": {
       "type": "conditional",
       "value": {
-       "type": "true",
-       "value": "true",
-       "text": "true",
-       "offset": 235,
-       "lineBreaks": 0,
-       "line": 11,
-       "col": 13
+       "type": "var-compare",
+       "id": {
+        "type": "var",
+        "value": {
+         "type": "id",
+         "value": "i",
+         "text": "i",
+         "offset": 218,
+         "lineBreaks": 0,
+         "line": 10,
+         "col": 13
+        }
+       },
+       "symbol": {
+        "type": "cond_symbols",
+        "value": "<",
+        "text": "<",
+        "offset": 219,
+        "lineBreaks": 0,
+        "line": 10,
+        "col": 14
+       },
+       "value": {
+        "type": "number",
+        "value": 5,
+        "text": "5",
+        "offset": 220,
+        "lineBreaks": 0,
+        "line": 10,
+        "col": 15
+       }
       },
       "not": false
      },
-     "value": []
-    }
-   },
-   {
-    "type": "else_def",
-    "value": {
-     "type": "bi_func_call",
-     "func_name": {
-      "type": "built_ins",
-      "value": "print",
-      "text": "print",
-      "offset": 253,
-      "lineBreaks": 0,
-      "line": 12,
-      "col": 10
-     },
-     "params": [
-      {
-       "type": "string",
-       "value": "error",
-       "text": "\"error\"",
-       "offset": 259,
+     "incrementer": {
+      "type": "adder",
+      "id": {
+       "type": "var",
+       "value": {
+        "type": "id",
+        "value": "i",
+        "text": "i",
+        "offset": 222,
+        "lineBreaks": 0,
+        "line": 10,
+        "col": 17
+       }
+      },
+      "value": 1
+     }
+    },
+    "body": [
+     {
+      "type": "func_call",
+      "func_name": {
+       "type": "id",
+       "value": "say",
+       "text": "say",
+       "offset": 237,
        "lineBreaks": 0,
-       "line": 12,
-       "col": 16
-      }
-     ]
-    }
+       "line": 11,
+       "col": 9
+      },
+      "params": [
+       {
+        "type": "string",
+        "value": "hi",
+        "text": "\"hi\"",
+        "offset": 241,
+        "lineBreaks": 0,
+        "line": 11,
+        "col": 13
+       }
+      ]
+     }
+    ]
    }
   ]
  }

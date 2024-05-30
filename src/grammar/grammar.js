@@ -257,23 +257,382 @@ var grammar = {
     {"name": "conditional", "symbols": [{"literal":"false"}], "postprocess": id},
     {"name": "entity_condtional$subexpression$1", "symbols": [{"literal":"at"}]},
     {"name": "entity_condtional$subexpression$1", "symbols": [{"literal":"as"}]},
-    {"name": "entity_condtional", "symbols": ["entity_condtional$subexpression$1", "_lb", "id_def"], "postprocess": id},
-    {"name": "block_condtional", "symbols": [{"literal":"block"}, "_lb", "pos", "_lb", "id_def"], "postprocess": id},
+    {"name": "entity_condtional", "symbols": ["entity_condtional$subexpression$1", "_lb", "id_def"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "entity",
+                source: data[0],
+                value: data[2]
+            }
+        }  
+             },
+    {"name": "block_condtional", "symbols": [{"literal":"block"}, "_lb", "pos", "_lb", "id_def"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "block",
+                pos: data[2],
+                value: data[4]
+            }
+        }  
+             },
     {"name": "blocks_condtional$subexpression$1", "symbols": [{"literal":"all"}]},
     {"name": "blocks_condtional$subexpression$1", "symbols": [{"literal":"masked"}]},
-    {"name": "blocks_condtional", "symbols": [{"literal":"blocks"}, "_lb", "pos", "_lb", "pos", "_lb", "pos", "_lb", "blocks_condtional$subexpression$1"], "postprocess": id},
-    {"name": "biome_condtional", "symbols": [{"literal":"biome"}, "_lb", "pos", "_lb", "tag"], "postprocess": id},
-    {"name": "biome_condtional", "symbols": [{"literal":"biome"}, "_lb", "pos", "_lb", "id_def"], "postprocess": id},
-    {"name": "data_condtional", "symbols": [{"literal":"data"}, "_lb", {"literal":"block"}, "_lb", "pos", "_lb", "nbt"], "postprocess": id},
-    {"name": "data_condtional", "symbols": [{"literal":"data"}, "_lb", {"literal":"entity"}, "_lb", "id_def", "_lb", "nbt"], "postprocess": id},
-    {"name": "data_condtional", "symbols": [{"literal":"data"}, "_lb", {"literal":"storage"}, "_lb", "pos", "_lb", "nbt"], "postprocess": id},
-    {"name": "dimension_condtional", "symbols": [{"literal":"dimension"}, "_lb", "id_def"], "postprocess": id},
-    {"name": "function_conditional", "symbols": [{"literal":"function"}, "_lb", "func_call"], "postprocess": id},
-    {"name": "items_conditional", "symbols": [{"literal":"items"}, "_lb", {"literal":"block"}, "_lb", "pos", "_lb", "id_def", "_lb", "id_def"], "postprocess": id},
-    {"name": "loaded_conditional", "symbols": [{"literal":"loaded"}, "_lb", "pos"], "postprocess": id},
-    {"name": "predicate_conditional", "symbols": [{"literal":"predicate"}, "_lb", "id_def"], "postprocess": id},
-    {"name": "var_conditional", "symbols": ["id_def", (lexer.has("cond_symbols") ? {type: "cond_symbols"} : cond_symbols), "expr"], "postprocess": id},
-    {"name": "var_conditional", "symbols": ["id_def", {"literal":"exists"}], "postprocess": id},
+    {"name": "blocks_condtional", "symbols": [{"literal":"blocks"}, "_lb", "pos", "_lb", "pos", "_lb", "pos", "_lb", "blocks_condtional$subexpression$1"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "blocks",
+                start: data[2],
+                end: data[4],
+                destination: data[6],
+                mask: data[8]
+            }
+        }  
+             },
+    {"name": "biome_condtional", "symbols": [{"literal":"biome"}, "_lb", "pos", "_lb", "tag"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "biome",
+                pos: data[2],
+                tag: data[4]
+            }
+        }  
+             },
+    {"name": "biome_condtional", "symbols": [{"literal":"biome"}, "_lb", "pos", "_lb", "id_def"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "biome",
+                pos: data[2],
+                value: data[4]
+            }
+        }  
+             },
+    {"name": "data_condtional", "symbols": [{"literal":"data"}, "_lb", {"literal":"block"}, "_lb", "pos", "_lb", "nbt"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "data-block",
+                pos: data[4],
+                nbt: data[6]
+            }
+        }  
+             },
+    {"name": "data_condtional", "symbols": [{"literal":"data"}, "_lb", {"literal":"entity"}, "_lb", "id_def", "_lb", "nbt"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "data-entity",
+                value: data[4],
+                nbt: data[6]
+            }
+        }  
+             },
+    {"name": "data_condtional", "symbols": [{"literal":"data"}, "_lb", {"literal":"storage"}, "_lb", "pos", "_lb", "nbt"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "data-storage",
+                pos: data[4],
+                nbt: data[6]
+            }
+        }  
+             },
+    {"name": "dimension_condtional", "symbols": [{"literal":"dimension"}, "_lb", "id_def"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "dimension",
+                value: data[2]
+            }
+        }  
+             },
+    {"name": "function_conditional", "symbols": [{"literal":"function"}, "_lb", "func_call"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "function",
+                func: data[2]
+            }
+        }  
+            },
+    {"name": "items_conditional", "symbols": [{"literal":"items"}, "_lb", {"literal":"block"}, "_lb", "pos", "_lb", "id_def", "_lb", "id_def"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "items-block",
+                pos: data[4],
+                slot: data[6],
+                predicate: data[6]
+            }
+        }  
+            },
+    {"name": "items_conditional", "symbols": [{"literal":"items"}, "_lb", {"literal":"entity"}, "_lb", "id_def", "_lb", "id_def", "_lb", "id_def"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "items-entity",
+                value: data[4],
+                slot: data[6],
+                predicate: data[6]
+            }
+        }  
+            },
+    {"name": "loaded_conditional", "symbols": [{"literal":"loaded"}, "_lb", "pos"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "loaded",
+                func: data[2]
+            }
+        }  
+            },
+    {"name": "predicate_conditional", "symbols": [{"literal":"predicate"}, "_lb", "id_def"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "predicate",
+                predicate: data[2]
+            }
+        }  
+            },
+    {"name": "var_conditional", "symbols": ["id_def", "_lb", (lexer.has("cond_symbols") ? {type: "cond_symbols"} : cond_symbols), "_lb", "expr"], "postprocess":  
+        (data)=>{
+            return { 
+                type: "var-compare",
+                id: data[0],
+                symbol: data[2],
+                value: data[4],
+            }
+        }  
+            },
+    {"name": "var_conditional", "symbols": ["id_def", {"literal":"exists"}], "postprocess":  
+        (data)=>{
+            return { 
+                type: "var-exists",
+                value: data[0]
+            }
+        }  
+            },
+    {"name": "incrementer", "symbols": ["add_increment"], "postprocess": id},
+    {"name": "incrementer", "symbols": ["sub_increment"], "postprocess": id},
+    {"name": "incrementer", "symbols": ["div_increment"], "postprocess": id},
+    {"name": "incrementer", "symbols": ["mod_increment"], "postprocess": id},
+    {"name": "incrementer", "symbols": ["multi_increment"], "postprocess": id},
+    {"name": "incrementer", "symbols": ["var_assign"], "postprocess": id},
+    {"name": "add_increment", "symbols": ["id_def", "_lb", {"literal":"++"}], "postprocess": 
+        (data)=>{
+            return {
+                type: "adder",
+                id: data[0],
+                value: 1
+            }
+        }
+            },
+    {"name": "add_increment", "symbols": ["id_def", "_lb", {"literal":"+="}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type: "adder",
+                id: data[0],
+                value: data[4]
+            }
+        }
+            },
+    {"name": "add_increment", "symbols": ["var_assign", "_lb", {"literal":"+"}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type: "adder",
+                id: data[0],
+                value: data[4]
+            }
+        }
+            },
+    {"name": "sub_increment", "symbols": ["id_def", "_lb", {"literal":"--"}], "postprocess": 
+        (data)=>{
+            return {
+                type: "subtractor",
+                id: data[0],
+                value: 1
+            }
+        }
+            },
+    {"name": "sub_increment", "symbols": ["id_def", "_lb", {"literal":"-="}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type: "subtractor",
+                id: data[0],
+                value: data[4]
+            }
+        }
+            },
+    {"name": "sub_increment", "symbols": ["var_assign", "_lb", {"literal":"-"}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type: "subtractor",
+                id: data[0],
+                value: data[4]
+            }
+        }
+            },
+    {"name": "mod_increment", "symbols": ["id_def", "_lb", {"literal":"%="}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type: "modulator",
+                id: data[0],
+                value: data[4]
+            }
+        }
+            },
+    {"name": "mod_increment", "symbols": ["var_assign", "_lb", {"literal":"%"}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type: "modulator",
+                id: data[0],
+                value: data[4]
+            }
+        }
+            },
+    {"name": "div_increment", "symbols": ["id_def", "_lb", {"literal":"/="}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type: "divider",
+                id: data[0],
+                value: data[4]
+            }
+        }
+            },
+    {"name": "div_increment", "symbols": ["var_assign", "_lb", {"literal":"/"}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type: "divider",
+                id: data[0],
+                value: data[4]
+            }
+        }
+            },
+    {"name": "multi_increment", "symbols": ["id_def", "_lb", {"literal":"*="}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type: "multiplier",
+                id: data[0],
+                value: data[4]
+            }
+        }
+            },
+    {"name": "multi_increment", "symbols": ["var_assign", "_lb", {"literal":"*"}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return {
+                type: "multiplier",
+                id: data[0],
+                value: data[4]
+            }
+        }
+            },
+    {"name": "score_assign", "symbols": [{"literal":"score"}, "_lb", (lexer.has("id") ? {type: "id"} : id)], "postprocess": 
+        (data)=>{
+            return { 
+                type: "score_def",
+                id: data[2]
+            }
+        }
+                },
+    {"name": "score_assign", "symbols": [{"literal":"score"}, "_lb", "var_assign"], "postprocess":     
+        (data)=>{
+            return { 
+                type: "score_assign",
+                value: data[2]
+            }
+        }
+               },
+    {"name": "entity_assign", "symbols": [{"literal":"entity"}, "_lb", "var_assign"], "postprocess": 
+        (data)=>{
+            return { 
+                type: "entity_assign",
+                value: data[2]
+            }
+        }
+            },
+    {"name": "var_assign", "symbols": ["id_def", "_lb", {"literal":"="}, "_lb", "expr"], "postprocess": 
+        (data)=>{
+            return { 
+                type: "var_assign",
+                id: data[0],
+                value: data[4]
+            }
+        }
+                },
+    {"name": "id_def", "symbols": [(lexer.has("id") ? {type: "id"} : id)], "postprocess": 
+        (data)=>{
+            return {
+                type: "var",
+                value: data[0],
+            }
+        }
+            },
+    {"name": "id_def", "symbols": [(lexer.has("id") ? {type: "id"} : id), "_lb", {"literal":"["}, (lexer.has("id") ? {type: "id"} : id), {"literal":"]"}], "postprocess": 
+        (data)=>{
+            return {
+                type: "var_accesor",
+                value: data[0],
+                accessor: data[3]
+            }
+        }
+            },
+    {"name": "id_def", "symbols": [(lexer.has("id") ? {type: "id"} : id), "_lb", {"literal":"["}, "conditionals", {"literal":"]"}], "postprocess": 
+        (data)=>{
+            return { 
+                type: "var_conditional",
+                value: data[0],
+                conditional: data[3]
+            }
+        }
+        },
+    {"name": "for_loop", "symbols": [{"literal":"for"}, "_lb", {"literal":"("}, "_lb", "for_header", "_lb", {"literal":")"}, "wrapper"], "postprocess": 
+        (data)=>{
+                 return { 
+                     type: "for",
+                     header: data[4],
+                     body: data[7]
+                 }
+             }
+            },
+    {"name": "for_header", "symbols": ["var_assign", "__seg", "conditionals", "__seg", "incrementer"], "postprocess": 
+        (data)=>{
+            return { 
+                type: "head-conditional",
+                value: data[0],
+                conditonal: data[2],
+                incrementer: data[4]
+            }
+        }
+            },
+    {"name": "for_header", "symbols": ["conditionals", "__seg", "incrementer"], "postprocess": 
+        (data)=>{
+            return { 
+                type: "head-conditional",
+                conditonal: data[2],
+                incrementer: data[4]
+            }
+        }
+            },
+    {"name": "for_header$subexpression$1", "symbols": ["var_assign"]},
+    {"name": "for_header$subexpression$1", "symbols": ["id_def"]},
+    {"name": "for_header", "symbols": ["for_header$subexpression$1", "_lb", {"literal":"in"}, "_lb", "id_def"], "postprocess": 
+        (data)=>{
+            return { 
+                type: "iterator",
+                value: data[0],
+                iterator: data[2]
+            }
+        }
+            },
+    {"name": "while_loop", "symbols": [{"literal":"while"}, "_lb", {"literal":"("}, "_lb", "conditionals", "_lb", {"literal":")"}, "wrapper"], "postprocess": 
+        (data)=>{
+            return { 
+                type: "while",
+                conditional: data[4],
+                body: data[7]
+            }
+        }
+            },
+    {"name": "do_while_loop", "symbols": [{"literal":"do"}, "wrapper", "_lb", {"literal":"while"}, "_lb", {"literal":"("}, "_lb", "conditionals", "_lb", {"literal":")"}], "postprocess": 
+        (data)=>{
+            return { 
+                type: "do-while",
+                conditional: data[7],
+                body: data[1],
+            }
+        }  
+            },
     {"name": "statements$ebnf$1", "symbols": []},
     {"name": "statements$ebnf$1$subexpression$1", "symbols": ["__seg", "statement"]},
     {"name": "statements$ebnf$1", "symbols": ["statements$ebnf$1", "statements$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
@@ -287,6 +646,9 @@ var grammar = {
     {"name": "statement", "symbols": ["if_define"], "postprocess": id},
     {"name": "statement", "symbols": ["elif_define"], "postprocess": id},
     {"name": "statement", "symbols": ["else_define"], "postprocess": id},
+    {"name": "statement", "symbols": ["for_loop"], "postprocess": id},
+    {"name": "statement", "symbols": ["while_loop"], "postprocess": id},
+    {"name": "statement", "symbols": ["do_while_loop"], "postprocess": id},
     {"name": "statement", "symbols": ["score_assign"], "postprocess": id},
     {"name": "statement", "symbols": ["entity_assign"], "postprocess": id},
     {"name": "statement", "symbols": ["var_assign"], "postprocess": id},
@@ -327,71 +689,12 @@ var grammar = {
             return data[2];
         } 
             },
-    {"name": "score_assign", "symbols": [{"literal":"score"}, "_lb", (lexer.has("id") ? {type: "id"} : id)], "postprocess": 
-        (data)=>{
-            return { 
-                type: "score_def",
-                id: data[2]
-            }
-        }
-                },
-    {"name": "score_assign", "symbols": [{"literal":"score"}, "_lb", "var_assign"], "postprocess":     
-        (data)=>{
-            return { 
-                type: "score_assign",
-                value: data[2]
-            }
-        }
-               },
-    {"name": "entity_assign", "symbols": [{"literal":"entity"}, "_lb", "var_assign"], "postprocess": 
-        (data)=>{
-            return { 
-                type: "entity_assign",
-                value: data[2]
-            }
-        }
-            },
-    {"name": "var_assign", "symbols": ["id_def", "_lb", {"literal":"="}, "_lb", "expr"], "postprocess": 
-        (data)=>{
-            return { 
-                type: "var_assign",
-                id: data[0],
-                value: data[4]
-            }
-        }
-                },
     {"name": "expr", "symbols": [(lexer.has("string") ? {type: "string"} : string)], "postprocess": id},
     {"name": "expr", "symbols": [(lexer.has("number") ? {type: "number"} : number)], "postprocess": id},
     {"name": "expr", "symbols": ["func_call"], "postprocess": id},
     {"name": "expr", "symbols": ["id_def"], "postprocess": id},
     {"name": "expr", "symbols": [(lexer.has("locators") ? {type: "locators"} : locators)], "postprocess": id},
     {"name": "expr", "symbols": ["tag"], "postprocess": id},
-    {"name": "id_def", "symbols": [(lexer.has("id") ? {type: "id"} : id)], "postprocess": 
-        (data)=>{
-            return {
-                type: "var",
-                value: data[0],
-            }
-        }
-            },
-    {"name": "id_def", "symbols": [(lexer.has("id") ? {type: "id"} : id), "_lb", {"literal":"["}, (lexer.has("id") ? {type: "id"} : id), {"literal":"]"}], "postprocess": 
-        (data)=>{
-            return {
-                type: "var_accesor",
-                value: data[0],
-                accessor: data[3]
-            }
-        }
-            },
-    {"name": "id_def", "symbols": [(lexer.has("id") ? {type: "id"} : id), "_lb", {"literal":"["}, "conditionals", {"literal":"]"}], "postprocess": 
-        (data)=>{
-            return { 
-                type: "var_conditional",
-                value: data[0],
-                conditional: data[3]
-            }
-        }
-        },
     {"name": "pos", "symbols": [(lexer.has("number") ? {type: "number"} : number), "_lb", (lexer.has("number") ? {type: "number"} : number), "_lb", (lexer.has("number") ? {type: "number"} : number)]},
     {"name": "pos", "symbols": [{"literal":"~"}, (lexer.has("number") ? {type: "number"} : number), "_lb", {"literal":"~"}, (lexer.has("number") ? {type: "number"} : number), "_lb", {"literal":"~"}, (lexer.has("number") ? {type: "number"} : number)]},
     {"name": "pos", "symbols": [{"literal":"^"}, (lexer.has("number") ? {type: "number"} : number), "_lb", {"literal":"^"}, (lexer.has("number") ? {type: "number"} : number), "_lb", {"literal":"^"}, (lexer.has("number") ? {type: "number"} : number)]},

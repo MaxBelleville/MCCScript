@@ -135,49 +135,192 @@ conditional
     |  biome_condtional      {% id %}
     |  data_condtional       {% id %}
     |  dimension_condtional  {% id %}
-    |  items_conditional      {% id %}
+    |  items_conditional     {% id %}
     |  loaded_conditional    {% id %}
     |  predicate_conditional {% id %}
     |  var_conditional       {% id %}
     |  "true"                {% id %}
-    |  "false"                {% id %}
+    |  "false"               {% id %}
 
 entity_condtional
-    -> ("at"|"as") _lb id_def {% id %}
+    -> ("at"|"as") _lb id_def 
+    {% 
+        (data)=>{
+            return { 
+                type: "entity",
+                source: data[0],
+                value: data[2]
+            }
+        }  
+     %}
 
 block_condtional
-    -> "block" _lb pos _lb id_def {% id %}
+    -> "block" _lb pos _lb id_def 
+    {% 
+        (data)=>{
+            return { 
+                type: "block",
+                pos: data[2],
+                value: data[4]
+            }
+        }  
+     %}
 
 blocks_condtional
-   -> "blocks" _lb pos _lb pos _lb pos _lb ("all"|"masked") {% id %}
+   -> "blocks" _lb pos _lb pos _lb pos _lb ("all"|"masked") 
+    {% 
+        (data)=>{
+            return { 
+                type: "blocks",
+                start: data[2],
+                end: data[4],
+                destination: data[6],
+                mask: data[8]
+            }
+        }  
+     %}
 
 biome_condtional
-    -> "biome" _lb pos _lb tag {% id %}
-    | "biome" _lb pos _lb id_def {% id %}
+    -> "biome" _lb pos _lb tag 
+        {% 
+        (data)=>{
+            return { 
+                type: "biome",
+                pos: data[2],
+                tag: data[4]
+            }
+        }  
+     %}
+    | "biome" _lb pos _lb id_def
+           {% 
+        (data)=>{
+            return { 
+                type: "biome",
+                pos: data[2],
+                value: data[4]
+            }
+        }  
+     %}
 
 data_condtional
-    -> "data" _lb "block" _lb pos _lb nbt {% id %}
-    |  "data" _lb "entity" _lb id_def _lb nbt {% id %} 
-    |  "data" _lb "storage" _lb pos _lb nbt {% id %} 
+    -> "data" _lb "block" _lb pos _lb nbt
+    {% 
+        (data)=>{
+            return { 
+                type: "data-block",
+                pos: data[4],
+                nbt: data[6]
+            }
+        }  
+     %}
+    |  "data" _lb "entity" _lb id_def _lb nbt 
+     {% 
+        (data)=>{
+            return { 
+                type: "data-entity",
+                value: data[4],
+                nbt: data[6]
+            }
+        }  
+     %}
+    |  "data" _lb "storage" _lb pos _lb nbt 
+    {% 
+        (data)=>{
+            return { 
+                type: "data-storage",
+                pos: data[4],
+                nbt: data[6]
+            }
+        }  
+     %}
 
 dimension_condtional
-    -> "dimension" _lb id_def {% id %}
+    -> "dimension" _lb id_def 
+    {% 
+        (data)=>{
+            return { 
+                type: "dimension",
+                value: data[2]
+            }
+        }  
+     %}
 
 function_conditional
-    -> "function" _lb func_call {% id %}
-
+    -> "function" _lb func_call 
+    {% 
+        (data)=>{
+            return { 
+                type: "function",
+                func: data[2]
+            }
+        }  
+    %}
 items_conditional
-    -> "items" _lb "block" _lb pos _lb id_def _lb id_def {% id %}
+    -> "items" _lb "block" _lb pos _lb id_def _lb id_def 
+    {% 
+        (data)=>{
+            return { 
+                type: "items-block",
+                pos: data[4],
+                slot: data[6],
+                predicate: data[6]
+            }
+        }  
+    %}
+    | "items" _lb "entity" _lb id_def _lb id_def _lb id_def 
+    {% 
+        (data)=>{
+            return { 
+                type: "items-entity",
+                value: data[4],
+                slot: data[6],
+                predicate: data[6]
+            }
+        }  
+    %}
 
 loaded_conditional
-     -> "loaded" _lb pos {% id %}
+     -> "loaded" _lb pos 
+    {% 
+        (data)=>{
+            return { 
+                type: "loaded",
+                func: data[2]
+            }
+        }  
+    %}
 
 predicate_conditional
-    -> "predicate" _lb id_def {% id %}
+    -> "predicate" _lb id_def 
+     {% 
+        (data)=>{
+            return { 
+                type: "predicate",
+                predicate: data[2]
+            }
+        }  
+    %}
 
 var_conditional
-    -> id_def %cond_symbols expr {% id %}
-    | id_def "exists" {% id %}
-
+    -> id_def _lb %cond_symbols _lb expr 
+      {% 
+        (data)=>{
+            return { 
+                type: "var-compare",
+                id: data[0],
+                symbol: data[2],
+                value: data[4],
+            }
+        }  
+    %}
+    | id_def "exists"
+    {% 
+        (data)=>{
+            return { 
+                type: "var-exists",
+                value: data[0]
+            }
+        }  
+    %}
 
 
