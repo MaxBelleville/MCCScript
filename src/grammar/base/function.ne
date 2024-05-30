@@ -23,34 +23,21 @@ func_call
       %}
 
 func_def 
-    -> "function" _lb %id _lb "(" _lb (param_list):? _lb ")" func_body
+    -> "function" _lb %id _lb "(" (_lb param_list):? _lb ")" wrapper
     {%
         (data)=>{
                 return { 
                     type: "func_def",
                     func_name: data[2],
-                    params: data[6]? data[6][0] : [],
+                    params: data[5]? data[5][1]: [],
                     body: data[9]
                 }
         }
     %}
 
-func_body
-    -> _lb "{" _lb "}"
-    {%
-        (data)=>{
-            return [];
-        } 
-    %}
-    | _lb "{" statements "}"
-    {%  
-        (data)=>{
-            return data[2];
-        } 
-    %}
 
 arg_list 
-    -> %expr (_lb "," _lb %expr):*
+    -> expr (_lb "," _lb expr):*
         {%
         (data)=>{
             const arrayExpr = data[1]

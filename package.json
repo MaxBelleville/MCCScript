@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js main.mccscript",
-    "gen-parser": "cd ./src/grammar & nearleyc index.ne -o grammar.js"
+    "gen-parser": "cd ./src/grammar & nearleyc index.ne -o grammar.js",
+    "test": "nearley-test ./src/grammar/grammar.js"
   },
   "author": "",
   "license": "ISC",

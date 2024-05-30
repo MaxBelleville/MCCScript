@@ -42,7 +42,7 @@ datapack_args
 
 
 datapack_func
-    -> ("load"|"tick") func_body
+    -> ("load"|"tick") wrapper
      {%
          (data)=>{
                  var type=data[0][0].value

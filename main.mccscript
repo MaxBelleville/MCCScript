@@ -1,8 +1,13 @@
 @datapack -dir "C:/Users/maxbe/AppData/Roaming/.minecraft/saves/MMCDebug/datapacks" -ns "test_pack" -ver 41
+@import "test.mccscript"
 load {
-    x=5;
+    score x;
+    entity player = @a;
+    player[x] =5;
 };
 
 tick {
-
+    for(x=0;i<5;i++) {
+        say("hi");
+    }
 };

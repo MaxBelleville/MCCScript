@@ -41,33 +41,221 @@
   ]
  },
  {
+  "type": "import_mcc",
+  "value": {
+   "type": "string",
+   "value": "test.mccscript",
+   "text": "\"test.mccscript\"",
+   "offset": 116,
+   "lineBreaks": 0,
+   "line": 2,
+   "col": 9
+  },
+  "body": [
+   {
+    "type": "datapack_def",
+    "params": [
+     {
+      "type": "namespace",
+      "value": {
+       "type": "string",
+       "value": "de_test",
+       "text": "\"de_test\"",
+       "offset": 14,
+       "lineBreaks": 0,
+       "line": 1,
+       "col": 15
+      }
+     }
+    ]
+   },
+   {
+    "type": "load",
+    "body": [
+     {
+      "type": "var_assign",
+      "id": {
+       "type": "var",
+       "value": {
+        "type": "id",
+        "value": "x",
+        "text": "x",
+        "offset": 35,
+        "lineBreaks": 0,
+        "line": 3,
+        "col": 5
+       }
+      },
+      "value": {
+       "type": "number",
+       "value": 5,
+       "text": "5",
+       "offset": 37,
+       "lineBreaks": 0,
+       "line": 3,
+       "col": 7
+      }
+     }
+    ]
+   },
+   {
+    "type": "func_def",
+    "func_name": {
+     "type": "id",
+     "value": "func",
+     "text": "func",
+     "offset": 53,
+     "lineBreaks": 0,
+     "line": 6,
+     "col": 10
+    },
+    "params": []
+   }
+  ]
+ },
+ {
   "type": "load",
   "body": [
    {
-    "type": "var_assign",
-    "var_name": {
+    "type": "score_def",
+    "id": {
      "type": "id",
      "value": "x",
      "text": "x",
-     "offset": 119,
+     "offset": 150,
      "lineBreaks": 0,
-     "line": 3,
-     "col": 5
+     "line": 4,
+     "col": 11
+    }
+   },
+   {
+    "type": "entity_assign",
+    "value": {
+     "type": "var_assign",
+     "id": {
+      "type": "var",
+      "value": {
+       "type": "id",
+       "value": "player",
+       "text": "player",
+       "offset": 164,
+       "lineBreaks": 0,
+       "line": 5,
+       "col": 12
+      }
+     },
+     "value": {
+      "type": "locators",
+      "value": "@a",
+      "text": "@a",
+      "offset": 173,
+      "lineBreaks": 0,
+      "line": 5,
+      "col": 21
+     }
+    }
+   },
+   {
+    "type": "var_assign",
+    "id": {
+     "type": "var_accesor",
+     "value": {
+      "type": "id",
+      "value": "player",
+      "text": "player",
+      "offset": 181,
+      "lineBreaks": 0,
+      "line": 6,
+      "col": 5
+     },
+     "accessor": {
+      "type": "id",
+      "value": "x",
+      "text": "x",
+      "offset": 188,
+      "lineBreaks": 0,
+      "line": 6,
+      "col": 12
+     }
     },
     "value": {
      "type": "number",
      "value": 5,
      "text": "5",
-     "offset": 121,
+     "offset": 192,
      "lineBreaks": 0,
-     "line": 3,
-     "col": 7
+     "line": 6,
+     "col": 16
     }
    }
   ]
  },
  {
   "type": "tick",
-  "body": []
+  "body": [
+   {
+    "type": "if_def",
+    "conditionals": {
+     "type": "conditional",
+     "value": {
+      "type": "true",
+      "value": "true",
+      "text": "true",
+      "offset": 214,
+      "lineBreaks": 0,
+      "line": 10,
+      "col": 9
+     },
+     "not": false
+    },
+    "value": []
+   },
+   {
+    "type": "elif_def",
+    "value": {
+     "type": "if_def",
+     "conditionals": {
+      "type": "conditional",
+      "value": {
+       "type": "true",
+       "value": "true",
+       "text": "true",
+       "offset": 235,
+       "lineBreaks": 0,
+       "line": 11,
+       "col": 13
+      },
+      "not": false
+     },
+     "value": []
+    }
+   },
+   {
+    "type": "else_def",
+    "value": {
+     "type": "bi_func_call",
+     "func_name": {
+      "type": "built_ins",
+      "value": "print",
+      "text": "print",
+      "offset": 253,
+      "lineBreaks": 0,
+      "line": 12,
+      "col": 10
+     },
+     "params": [
+      {
+       "type": "string",
+       "value": "error",
+       "text": "\"error\"",
+       "offset": 259,
+       "lineBreaks": 0,
+       "line": 12,
+       "col": 16
+      }
+     ]
+    }
+   }
+  ]
  }
 ]

@@ -9,11 +9,9 @@ const collectAst=async (code,prevFile)=>{
     const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
     // Parse something!
     parser.feed(code);
-    if(parser.results.length>1){
-        console.log("Error: ambiguous grammar ")
-        console.log(JSON.stringify(parser.results))
-    }
-    else if(parser.results.length==1) {
+    if(parser.results.length>0){
+        if(parser.results.length>1)console.log("Error: ambiguous grammar ")
+        //Do anyways
         var ast = parser.results[0];
         for (const nodes of ast){
             if(nodes.type === "import_mcc") {
@@ -26,7 +24,7 @@ const collectAst=async (code,prevFile)=>{
                 const fullPath = resolve(importStr);
                 if(!importList.includes(fullPath)) {
                     importList.push(fullPath)
-                    ast.push(await collectAst(importCode,importStr));
+                    nodes.body=await collectAst(importCode,importStr);
                 }
                 else {
                     console.log("Warning duplicate import: "+ importStr + " in " + prevFile);

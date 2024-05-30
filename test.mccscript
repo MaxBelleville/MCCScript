@@ -1,0 +1,8 @@
+@datapack -ns "de_test"
+load {
+    x=5;
+};
+
+function func(){
+
+}

@@ -1,27 +1,34 @@
 
 const moo = require('moo');
 const fs =require('fs/promises');
+const { relative } = require('path');
 const lexer = moo.compile({
     WS:      /[ \t]+/,
     comment: /\/\/.*?$/,
     number:  {match: /0|[1-9][0-9]*/, value: (str)=>Number(str)},
     string:  {match:/"(?:\\["\\]|[^\n"\\])*"/, value: (str)=>str.replaceAll("\"","")},
+    cond_keywords: [
+      'if', 'else', 'switch', 'case', 'default', 'break'
+    ],
     null: {match:['none','None','null','NULL'],value:0},
     true: {match:['True','true'],value:1},
     false: {match:['False','false'],value:0},
     built_ins:['print','pow','sqrt','acos','abs','acosh','asin','asinh','atan','atan2','atanh','cbrt',
     'ceil','cos','cosh','exp','floor','hypot','log','log10','max','min','round','sin','sinh','tan','tanh',
     'fact','uuid'],
-    conditional_keywords: [
-      'if', 'else', 'switch', 'case'
+    cond_and: [
+      'and', '&'
     ],
-    conditional_args: [
-      'and', 'not', 'or', 'default', 'break'
+    cond_or: [
+      'or', '|'
     ],
-    looping_keywords: [
-      'for', 'while', 'do-while', 'of',
+    cond_not: [
+      'not', '!'
     ],
-    functional_keywords: [
+    loop_keywords: [
+      'for', 'while', 'do', 'in',
+    ],
+    func_keywords: [
       'function', 'return'
     ],
     datapack_keywords: [
@@ -31,15 +38,15 @@ const lexer = moo.compile({
     import_keywords: [
       '@import',
     ],
+    locators: [
+      '@a', '@e', '@p', '@s'
+    ],
     lparen:  '(',
     rparen:  ')',
     lcurrly:  '{',
     rcurrly:  '}',
     lbrack:  '[',
     rbrack:  ']',
-    nequals: '!=',
-    lequals: '<=',
-    gequals: '>=',
     arrow: '=>',
     dequals: '/=',
     sequals: '-=',
@@ -47,7 +54,6 @@ const lexer = moo.compile({
     tequals: '*=',
     mequals: '%=',
     dollar: '$',
-    at: '@',
     comma: ',',
     equals: '=',
     divide: '/',
@@ -60,18 +66,21 @@ const lexer = moo.compile({
     add: '+',
     subtract: '-',
     times: '*',
-    gthan: '>',
     ref: '&',
-    lthan: '<',
-    not: '!',
+    tag: '#',
+    relative: '~',
+    positional: '^',
+    cond_symbols: [
+      '!=', '<=', '>=', '>', '<'
+    ],
     keyword: 
     [
       'in', 'end', 'to', 'by',  'namespace', 'with', 'macros', 'at', 'as', 'on', 
       'facing', 'rotated', 'align', 'here', 'the_end', 'the_nether', 'overworld', 'move', 
-      'create', 'tell', 'title', 'subtitle', 'actionbar', 'reset', 'clock', 'do', 'macro', 
+      'create', 'tell', 'title', 'subtitle', 'actionbar', 'reset', 'clock', 'macro', 
       'block', 'block_data', 'block_tag', 'entity_tag', 'item_tag', 'define', 'array', 'remove', 
       'success', 'result', 'shaped', 'recipe', 'keys', 'eyes', 'feet',	'advancement', 'loot_table', 
-      'predicate', 'push', 'pop'
+      'predicate', 'push', 'pop','score', 'entity'
     ],
     NL:      { match: /\n/, lineBreaks: true },
     id: /[a-zA-Z][a-zA-Z_0-9]*/,

@@ -3,9 +3,12 @@ const lexer = require('../lexer')
 %}
 @lexer lexer
 
-@include  "./function.ne"
-@include  "./datapack.ne"
-
+@include  "./base/function.ne"
+@include  "./base/datapack.ne"
+@include  "./base/conditionals.ne"
+@include  "./base/incrementors.ne"
+@include  "./base/assigners.ne"
+@include  "./base/loops.ne"
 
 statements
     -> _lb statement (__seg statement):* _seg
@@ -18,7 +21,15 @@ statements
         %}
 
 statement
-    -> var_assign   {% id %}
+    -> if_define    {% id %}
+    | elif_define   {% id %}
+    | else_define   {% id %}
+    | for_loop      {% id %}
+    | while_loop    {% id %}
+    | do_while_loop {% id %}
+    | score_assign  {% id %}
+    | entity_assign {% id %}
+    | var_assign    {% id %}
     | func_call     {% id %}
     | func_def      {% id %}
     | %comment      {% id %}
@@ -27,33 +38,65 @@ statement
     | import {% id %}
 
 import 
-    -> "#import" _lb %string
+    -> "@import" _lb %string
     {%
         (data)=>{
             return {
                 type: "import_mcc",
-                value: data[2]
+                value: data[2],
+                body: []
+            }
+        }
+    %}
+    |  "@import" _lb %string _lb ("-ns"|"-namespace") _lb %string
+    {%
+        (data)=>{
+            return {
+                type: "import_mcc",
+                value: data[2],
+                namespace: data[6],
+                body: []
             }
         }
     %}
 
-var_assign
-    -> %id _ "=" _ expr
-        {%
-            (data)=>{
-                return { 
-                    type: "var_assign",
-                    var_name: data[0],
-                    value: data[4]
-                }
-            }
-        %}
+
+wrapper
+    -> _lb "{" _lb "}"
+    {%
+        (data)=>{
+            return [];
+        } 
+    %}
+    | _lb "{" statements "}"
+    {%  
+        (data)=>{
+            return data[2];
+        } 
+    %}
 
 expr 
     -> %string  {% id %}
     | %number   {% id %}
-    | %id       {% id %}
     | func_call {% id %}
+    | id_def    {% id %}
+    | %locators {% id %}
+    | tag       {% id %}
+
+
+pos 
+  -> %number _lb %number _lb %number  
+  | "~" %number _lb "~" %number _lb "~" %number 
+  | "^" %number _lb "^" %number _lb "^" %number 
+
+tag 
+  -> "#" id_def 
+  {%
+    (data) => {
+        return data[1]
+    }
+  %}
+
 
 _lb
     -> _          {% id %} 
