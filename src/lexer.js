@@ -39,7 +39,7 @@ const lexer = moo.compile({
       '@import',
     ],
     locators: [
-      '@a', '@e', '@p', '@s'
+      '@a', '@e', '@p', '@s', '@n'
     ],
     lparen:  '(',
     rparen:  ')',

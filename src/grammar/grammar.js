@@ -40,7 +40,7 @@ var grammar = {
                     type: "func_def",
                     func_name: data[2],
                     params: data[5]? data[5][1]: [],
-                    body: data[9]
+                    body: data[8]
                 }
         }
             },

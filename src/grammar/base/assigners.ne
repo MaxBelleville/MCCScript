@@ -1,7 +1,17 @@
 @lexer lexer
 
 score_assign
-    -> "score" _lb %id
+    -> "score" _lb %id %id
+        {%
+            (data)=>{
+                return { 
+                    type: "score_def",
+                    id: data[2],
+                    criteria: data[3]
+                }
+            }
+        %}
+    | "score" _lb %id
         {%
             (data)=>{
                 return { 
