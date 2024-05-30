@@ -38,7 +38,7 @@ statement
     | import {% id %}
 
 import 
-    -> "@import" _lb %string
+    -> "import" _lb %string
     {%
         (data)=>{
             return {
@@ -48,7 +48,7 @@ import
             }
         }
     %}
-    |  "@import" _lb %string _lb ("-ns"|"-namespace") _lb %string
+    |  "import" _lb %string _lb ("-ns"|"-namespace") _lb %string
     {%
         (data)=>{
             return {

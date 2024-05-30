@@ -2,9 +2,9 @@ const nearley = require("nearley");
 const grammar = require("./grammar/grammar.js");
 const fs =require('fs/promises');
 const {resolve} = require('path');
+const Embeds = require('mccembeds');
 
 const importList=[];
-
 const collectAst=async (code,prevFile)=>{
     const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
     // Parse something!
@@ -16,6 +16,11 @@ const collectAst=async (code,prevFile)=>{
         for (const nodes of ast){
             if(nodes.type === "import_mcc") {
                 var importStr= nodes.value.value
+                if(importStr.startsWith("@")){
+                    const tmpStr= importStr.replace("@","")
+                    await Embeds.readEmbeddedFolder(tmpStr);
+                }
+                else {
                 //Recursively searches through imports to find other imports
                 //Ensure it 
                 if(!importStr.endsWith(".mccscript"))importStr+=".mccscript"
@@ -29,7 +34,8 @@ const collectAst=async (code,prevFile)=>{
                 else {
                     console.log("Warning duplicate import: "+ importStr + " in " + prevFile);
                 }
-                break;
+  
+                }
             }
         }
         return ast;

@@ -1,6 +1,7 @@
 const fs =require('fs/promises');
 const JSZip = require('jszip');
 const {convertPathToNS,readFileJson,readFileStr} = require('./utils.js');
+const Embeds = require('mccembeds');
 
 class Interpreter {
     //Assign general static variables for the datapack
@@ -20,6 +21,7 @@ class Interpreter {
 
     constructor(){
         this.zip = new JSZip();
+   
     }
     async build(ast,filename){
         //Get namespace from filename set to current namespace and file namespace.
@@ -199,7 +201,8 @@ class Interpreter {
                     createFolders: true // default value
                 })
         }
-
+        const embeds = Embeds.getEmbedded();
+        this.generateEmbeds(embeds,data)
         //Generate zip file
         var content = null;
         if (JSZip.support.uint8array) {
@@ -209,6 +212,16 @@ class Interpreter {
         }
         await fs.writeFile(Interpreter.dir+Interpreter.title+".zip",content);
         console.log(`Wrote to ${Interpreter.title}.zip`);
+    }
+    generateEmbeds(embeds,data){
+        for (const [key, value] of Object.entries(embeds)) {
+            if(typeof value === 'string'){
+                data.file(key,value);
+            } 
+            else {
+                this.generateEmbeds(value,data.folder(key))
+            }
+        }
     }
 
 }

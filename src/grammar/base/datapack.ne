@@ -1,7 +1,7 @@
 @lexer lexer
 
 datapack_def
-    -> "@datapack" (datapack_args):+
+    -> "datapack" (datapack_args):+
      {%
         (data)=>{
             const arrayArgs = data[1]

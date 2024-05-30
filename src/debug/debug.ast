@@ -8,10 +8,10 @@
      "type": "string",
      "value": "C:/Users/maxbe/AppData/Roaming/.minecraft/saves/MMCDebug/datapacks",
      "text": "\"C:/Users/maxbe/AppData/Roaming/.minecraft/saves/MMCDebug/datapacks\"",
-     "offset": 15,
+     "offset": 14,
      "lineBreaks": 0,
      "line": 1,
-     "col": 16
+     "col": 15
     }
    },
    {
@@ -20,10 +20,10 @@
      "type": "string",
      "value": "test_pack",
      "text": "\"test_pack\"",
-     "offset": 88,
+     "offset": 87,
      "lineBreaks": 0,
      "line": 1,
-     "col": 89
+     "col": 88
     }
    },
    {
@@ -32,10 +32,10 @@
      "type": "number",
      "value": 41,
      "text": "41",
-     "offset": 105,
+     "offset": 104,
      "lineBreaks": 0,
      "line": 1,
-     "col": 106
+     "col": 105
     }
    }
   ]
@@ -46,10 +46,10 @@
    "type": "string",
    "value": "test.mccscript",
    "text": "\"test.mccscript\"",
-   "offset": 116,
+   "offset": 114,
    "lineBreaks": 0,
    "line": 2,
-   "col": 9
+   "col": 8
   },
   "body": [
    {
@@ -61,10 +61,10 @@
        "type": "string",
        "value": "de_test",
        "text": "\"de_test\"",
-       "offset": 14,
+       "offset": 13,
        "lineBreaks": 0,
        "line": 1,
-       "col": 15
+       "col": 14
       }
      }
     ]
@@ -80,7 +80,7 @@
         "type": "id",
         "value": "x",
         "text": "x",
-        "offset": 35,
+        "offset": 34,
         "lineBreaks": 0,
         "line": 3,
         "col": 5
@@ -90,7 +90,7 @@
        "type": "number",
        "value": 5,
        "text": "5",
-       "offset": 37,
+       "offset": 36,
        "lineBreaks": 0,
        "line": 3,
        "col": 7
@@ -104,7 +104,7 @@
      "type": "id",
      "value": "func",
      "text": "func",
-     "offset": 53,
+     "offset": 52,
      "lineBreaks": 0,
      "line": 6,
      "col": 10
@@ -119,7 +119,7 @@
         "type": "id",
         "value": "y",
         "text": "y",
-        "offset": 65,
+        "offset": 64,
         "lineBreaks": 0,
         "line": 7,
         "col": 5
@@ -129,7 +129,7 @@
        "type": "number",
        "value": 5,
        "text": "5",
-       "offset": 69,
+       "offset": 68,
        "lineBreaks": 0,
        "line": 7,
        "col": 9
@@ -140,6 +140,19 @@
   ]
  },
  {
+  "type": "import_mcc",
+  "value": {
+   "type": "string",
+   "value": "@uuid",
+   "text": "\"@uuid\"",
+   "offset": 138,
+   "lineBreaks": 0,
+   "line": 3,
+   "col": 8
+  },
+  "body": []
+ },
+ {
   "type": "load",
   "body": [
    {
@@ -148,9 +161,9 @@
      "type": "id",
      "value": "x",
      "text": "x",
-     "offset": 150,
+     "offset": 163,
      "lineBreaks": 0,
-     "line": 4,
+     "line": 5,
      "col": 11
     }
    },
@@ -164,9 +177,9 @@
        "type": "id",
        "value": "player",
        "text": "player",
-       "offset": 164,
+       "offset": 177,
        "lineBreaks": 0,
-       "line": 5,
+       "line": 6,
        "col": 12
       }
      },
@@ -174,9 +187,9 @@
       "type": "locators",
       "value": "@a",
       "text": "@a",
-      "offset": 173,
+      "offset": 186,
       "lineBreaks": 0,
-      "line": 5,
+      "line": 6,
       "col": 21
      }
     }
@@ -189,18 +202,18 @@
       "type": "id",
       "value": "player",
       "text": "player",
-      "offset": 181,
+      "offset": 194,
       "lineBreaks": 0,
-      "line": 6,
+      "line": 7,
       "col": 5
      },
      "accessor": {
       "type": "id",
       "value": "x",
       "text": "x",
-      "offset": 188,
+      "offset": 201,
       "lineBreaks": 0,
-      "line": 6,
+      "line": 7,
       "col": 12
      }
     },
@@ -208,9 +221,9 @@
      "type": "number",
      "value": 5,
      "text": "5",
-     "offset": 192,
+     "offset": 205,
      "lineBreaks": 0,
-     "line": 6,
+     "line": 7,
      "col": 16
     }
    }
@@ -231,9 +244,9 @@
         "type": "id",
         "value": "x",
         "text": "x",
-        "offset": 214,
+        "offset": 227,
         "lineBreaks": 0,
-        "line": 10,
+        "line": 11,
         "col": 9
        }
       },
@@ -241,9 +254,9 @@
        "type": "number",
        "value": 0,
        "text": "0",
-       "offset": 216,
+       "offset": 229,
        "lineBreaks": 0,
-       "line": 10,
+       "line": 11,
        "col": 11
       }
      },
@@ -257,9 +270,9 @@
          "type": "id",
          "value": "i",
          "text": "i",
-         "offset": 218,
+         "offset": 231,
          "lineBreaks": 0,
-         "line": 10,
+         "line": 11,
          "col": 13
         }
        },
@@ -267,18 +280,18 @@
         "type": "cond_symbols",
         "value": "<",
         "text": "<",
-        "offset": 219,
+        "offset": 232,
         "lineBreaks": 0,
-        "line": 10,
+        "line": 11,
         "col": 14
        },
        "value": {
         "type": "number",
         "value": 5,
         "text": "5",
-        "offset": 220,
+        "offset": 233,
         "lineBreaks": 0,
-        "line": 10,
+        "line": 11,
         "col": 15
        }
       },
@@ -292,9 +305,9 @@
         "type": "id",
         "value": "i",
         "text": "i",
-        "offset": 222,
+        "offset": 235,
         "lineBreaks": 0,
-        "line": 10,
+        "line": 11,
         "col": 17
        }
       },
@@ -308,9 +321,9 @@
        "type": "id",
        "value": "say",
        "text": "say",
-       "offset": 237,
+       "offset": 250,
        "lineBreaks": 0,
-       "line": 11,
+       "line": 12,
        "col": 9
       },
       "params": [
@@ -318,9 +331,9 @@
         "type": "string",
         "value": "hi",
         "text": "\"hi\"",
-        "offset": 241,
+        "offset": 254,
         "lineBreaks": 0,
-        "line": 11,
+        "line": 12,
         "col": 13
        }
       ]

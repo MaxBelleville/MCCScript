@@ -1,4 +1,4 @@
-@datapack -ns "de_test"
+datapack -ns "de_test"
 load {
     x=5;
 };

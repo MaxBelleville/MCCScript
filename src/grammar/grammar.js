@@ -68,7 +68,7 @@ var grammar = {
     {"name": "datapack_def$ebnf$1", "symbols": ["datapack_def$ebnf$1$subexpression$1"]},
     {"name": "datapack_def$ebnf$1$subexpression$2", "symbols": ["datapack_args"]},
     {"name": "datapack_def$ebnf$1", "symbols": ["datapack_def$ebnf$1", "datapack_def$ebnf$1$subexpression$2"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "datapack_def", "symbols": [{"literal":"@datapack"}, "datapack_def$ebnf$1"], "postprocess": 
+    {"name": "datapack_def", "symbols": [{"literal":"datapack"}, "datapack_def$ebnf$1"], "postprocess": 
         (data)=>{
             const arrayArgs = data[1]
             const args = arrayArgs.map(parts=>parts[0])
@@ -517,6 +517,15 @@ var grammar = {
             }
         }
             },
+    {"name": "score_assign", "symbols": [{"literal":"score"}, "_lb", (lexer.has("id") ? {type: "id"} : id), (lexer.has("id") ? {type: "id"} : id)], "postprocess": 
+        (data)=>{
+            return { 
+                type: "score_def",
+                id: data[2],
+                criteria: data[3]
+            }
+        }
+                },
     {"name": "score_assign", "symbols": [{"literal":"score"}, "_lb", (lexer.has("id") ? {type: "id"} : id)], "postprocess": 
         (data)=>{
             return { 
@@ -658,7 +667,7 @@ var grammar = {
     {"name": "statement", "symbols": ["datapack_def"], "postprocess": id},
     {"name": "statement", "symbols": ["datapack_func"], "postprocess": id},
     {"name": "statement", "symbols": ["import"], "postprocess": id},
-    {"name": "import", "symbols": [{"literal":"@import"}, "_lb", (lexer.has("string") ? {type: "string"} : string)], "postprocess": 
+    {"name": "import", "symbols": [{"literal":"import"}, "_lb", (lexer.has("string") ? {type: "string"} : string)], "postprocess": 
         (data)=>{
             return {
                 type: "import_mcc",
@@ -669,7 +678,7 @@ var grammar = {
             },
     {"name": "import$subexpression$1", "symbols": [{"literal":"-ns"}]},
     {"name": "import$subexpression$1", "symbols": [{"literal":"-namespace"}]},
-    {"name": "import", "symbols": [{"literal":"@import"}, "_lb", (lexer.has("string") ? {type: "string"} : string), "_lb", "import$subexpression$1", "_lb", (lexer.has("string") ? {type: "string"} : string)], "postprocess": 
+    {"name": "import", "symbols": [{"literal":"import"}, "_lb", (lexer.has("string") ? {type: "string"} : string), "_lb", "import$subexpression$1", "_lb", (lexer.has("string") ? {type: "string"} : string)], "postprocess": 
         (data)=>{
             return {
                 type: "import_mcc",

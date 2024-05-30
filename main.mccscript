@@ -1,5 +1,6 @@
-@datapack -dir "C:/Users/maxbe/AppData/Roaming/.minecraft/saves/MMCDebug/datapacks" -ns "test_pack" -ver 41
-@import "test.mccscript"
+datapack -dir "C:/Users/maxbe/AppData/Roaming/.minecraft/saves/MMCDebug/datapacks" -ns "test_pack" -ver 41
+import "test.mccscript"
+import "@uuid"
 load {
     score x;
     entity player = @a;

@@ -33,10 +33,10 @@ const lexer = moo.compile({
     ],
     datapack_keywords: [
         'load', 'tick', '-dir','-directory','-version','-ver', '-namespace', 
-        '@datapack', '-desc', '-description', '-ns', '-t','-title'
+        'datapack', '-desc', '-description', '-ns', '-t','-title'
     ],
     import_keywords: [
-      '@import',
+      'import',
     ],
     locators: [
       '@a', '@e', '@p', '@s', '@n'
